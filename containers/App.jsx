@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import Header from '../components/Header';
 import MainSection from '../components/MainSection';
 import * as TodoActions from '../actions/todos';
+import * as GameActions from '../actions/games';
 
 // For Customization Options, edit  or use
 // './src/material_ui_raw_theme_file.jsx' as a template.
@@ -17,7 +18,7 @@ class App extends Component {
       <div>
         <MuiThemeProvider muiTheme={theme}>
           <div>
-            <Header addTodo={actions.addTodo}/>
+            <Header addTodo={todoActions.addTodo}/>
             <MainSection todos={todos} actions={actions}/>
           </div>
         </MuiThemeProvider>
@@ -27,19 +28,22 @@ class App extends Component {
 }
 
 App.propTypes = {
-  todos: PropTypes.array.isRequired,
-  actions: PropTypes.object.isRequired
+  todoState: PropTypes.array.isRequired,
+  gameState: PropTypes.object.isRequired,
+  todoActions: PropTypes.object.isRequired
 };
 
 function mapStateToProps(state) {
   return {
-    todos: state.todos
+    todoState: state.todos,
+    gameState: state.games
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(TodoActions, dispatch)
+    todoActions: bindActionCreators(TodoActions, dispatch),
+    gameActions: bindActionCreators(GameActions, dispatch)
   };
 }
 
