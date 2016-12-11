@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import Header from '../components/Header';
 import MainSection from '../components/MainSection';
 import * as TodoActions from '../actions/todos';
-import * as GameActions from '../actions/games';
+import GameListContainer from '../containers/GameListContainer';
 
 // For Customization Options, edit  or use
 // './src/material_ui_raw_theme_file.jsx' as a template.
@@ -13,13 +13,14 @@ import theme from '../src/material_ui_raw_theme_file'
 
 class App extends Component {
   render() {
-    const { todos, actions } = this.props;
+    const { todoState, todoActions } = this.props;
     return (
       <div>
         <MuiThemeProvider muiTheme={theme}>
           <div>
             <Header addTodo={todoActions.addTodo}/>
-            <MainSection todos={todos} actions={actions}/>
+            <MainSection todos={todoState} actions={todoActions}/>
+            <GameListContainer/>
           </div>
         </MuiThemeProvider>
       </div>
@@ -29,21 +30,18 @@ class App extends Component {
 
 App.propTypes = {
   todoState: PropTypes.array.isRequired,
-  gameState: PropTypes.object.isRequired,
   todoActions: PropTypes.object.isRequired
 };
 
 function mapStateToProps(state) {
   return {
-    todoState: state.todos,
-    gameState: state.games
+    todoState: state.todos
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    todoActions: bindActionCreators(TodoActions, dispatch),
-    gameActions: bindActionCreators(GameActions, dispatch)
+    todoActions: bindActionCreators(TodoActions, dispatch)
   };
 }
 
