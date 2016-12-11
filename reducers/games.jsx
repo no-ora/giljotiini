@@ -9,7 +9,7 @@ export default function games(state = initialState, action) {
   case ADD_GAME:
     return { games : [
       ...state.games,
-      { id: state.reduce((maxId, game) => Math.max(game.id, maxId), -1) + 1,
+      { id: state.games.reduce((maxId, game) => Math.max(game.id, maxId), -1) + 1,
        name: action.data.name }
     ]
   };

@@ -5,6 +5,7 @@ import Header from '../components/Header';
 import MainSection from '../components/MainSection';
 import * as TodoActions from '../actions/todos';
 import GameListContainer from '../containers/GameListContainer';
+import AddGameContainer from '../containers/AddGameContainer';
 
 // For Customization Options, edit  or use
 // './src/material_ui_raw_theme_file.jsx' as a template.
@@ -20,6 +21,7 @@ class App extends Component {
           <div>
             <Header addTodo={todoActions.addTodo}/>
             <MainSection todos={todoState} actions={todoActions}/>
+            <AddGameContainer/>
             <GameListContainer/>
           </div>
         </MuiThemeProvider>
