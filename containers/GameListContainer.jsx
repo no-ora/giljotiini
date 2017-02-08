@@ -2,8 +2,13 @@ import React, { Component, PropTypes } from "react";
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import GameList from '../components/GameList';
+import * as GameActions from '../actions/Games';
 
 class GameListContainer extends Component {
+componentDidMount() {
+  this.props.gameActions.fetchGames();
+}
+
   render() {
     const { games } = this.props;
     return (
@@ -26,7 +31,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-
+    gameActions: bindActionCreators(GameActions, dispatch)
   };
 }
 

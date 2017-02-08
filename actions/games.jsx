@@ -14,15 +14,16 @@ export function editGame(id, text) {
 }
 
 export function fetchGames() {
-  const request = axios({
-    method: 'get',
-    url: `http://localhost:3000/api/v1/game`,
-    headers: []
-  });
+  return function (dispatch, getState) {
+    dispatch({ type: types.FETCH_GAMES });
 
-  return {
-    type: types.FETCH_GAMES,
-    payload: request
+    return axios({
+      method: 'get',
+      url: `http://localhost:3000/api/v1/game`,
+      headers: []
+    })
+    .then((response) => dispatch(fetchGamesSuccess(response.data)))
+    .catch((error) => dispatch(fetchGamesError(error)));
   };
 }
 
