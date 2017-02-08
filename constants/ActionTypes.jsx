@@ -8,3 +8,6 @@ export const CLEAR_COMPLETED = 'CLEAR_COMPLETED';
 export const ADD_GAME = 'ADD_GAME';
 export const DELETE_GAME = 'DELETE_GAME';
 export const EDIT_GAME = 'EDIT_GAME';
+export const FETCH_GAMES = 'FETCH_GAMES';
+export const FETCH_GAMES_SUCCESS = 'FETCH_GAMES_SUCCESS';
+export const FETCH_GAMES_FAILURE = 'FETCH_GAMES_FAILURE';

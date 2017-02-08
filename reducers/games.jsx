@@ -1,7 +1,9 @@
-import { ADD_GAME, DELETE_GAME, EDIT_GAME } from '../constants/ActionTypes';
+import { ADD_GAME, DELETE_GAME, EDIT_GAME, FETCH_GAMES, FETCH_GAMES_SUCCESS, FETCH_GAMES_FAILURE } from '../constants/ActionTypes';
 
 const initialState = {
-  games : [{id: 0, name: "Nooran peli"}]
+  games : [],
+  isLoading : false,
+  error : null
   };
 
 export default function games(state = initialState, action) {
@@ -10,21 +12,30 @@ export default function games(state = initialState, action) {
     return { games : [
       ...state.games,
       { id: state.games.reduce((maxId, game) => Math.max(game.id, maxId), -1) + 1,
-       name: action.data.name }
+       name: action.payload.name }
     ]
   };
 
   case DELETE_GAME:
     return state.filter(game =>
-      game.id !== action.data.id
+      game.id !== action.payload.id
     );
 
   case EDIT_GAME:
     return state.map(game =>
-      game.id === action.data.id ?
-        Object.assign({}, game, { name: action.data.name }) :
+      game.id === action.payload.id ?
+        Object.assign({}, game, { name: action.payload.name }) :
         game
     );
+
+  case FETCH_GAMES:
+    return { ...state, isLoading : true };
+
+  case FETCH_GAMES_SUCCESS:
+    return { games : action.payload.games, isLoading : false, error : null};
+
+  case FETCH_GAMES_FAILURE:
+    return { isLoading : false, error : action.payload.error };
 
   default:
     return state;
