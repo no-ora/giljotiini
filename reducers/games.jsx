@@ -1,4 +1,4 @@
-import { ADD_GAME, DELETE_GAME, EDIT_GAME, FETCH_GAMES, FETCH_GAMES_SUCCESS, FETCH_GAMES_FAILURE } from '../constants/ActionTypes';
+import { ADD_GAME, ADD_GAME_SUCCESS, ADD_GAME_FAILURE, DELETE_GAME, EDIT_GAME, FETCH_GAMES, FETCH_GAMES_SUCCESS, FETCH_GAMES_FAILURE } from '../constants/ActionTypes';
 
 const initialState = {
   games : [],
@@ -8,36 +8,43 @@ const initialState = {
 
 export default function games(state = initialState, action) {
   switch (action.type) {
-  case ADD_GAME:
-    return { games : [
-      ...state.games,
-      { id: state.games.reduce((maxId, game) => Math.max(game.id, maxId), -1) + 1,
-       name: action.payload.name }
-    ]
-  };
+    case ADD_GAME:
+      return { ...state, isLoading : true };
 
-  case DELETE_GAME:
-    return state.filter(game =>
-      game.id !== action.payload.id
-    );
+    case ADD_GAME_SUCCESS:
+      return { games : [
+        ...state.games,
+        action.payload.game
+      ],
+      isLoading : false,
+      error : null
+      };
 
-  case EDIT_GAME:
-    return state.map(game =>
-      game.id === action.payload.id ?
-        Object.assign({}, game, { name: action.payload.name }) :
-        game
-    );
+    case ADD_GAME_FAILURE:
+      return { isLoading : false, error : action.payload.error };
 
-  case FETCH_GAMES:
-    return { ...state, isLoading : true };
+    case DELETE_GAME:
+      return state.filter(game =>
+        game.id !== action.payload.id
+      );
 
-  case FETCH_GAMES_SUCCESS:
-    return { games : action.payload.games, isLoading : false, error : null};
+    case EDIT_GAME:
+      return state.map(game =>
+        game.id === action.payload.id ?
+          Object.assign({}, game, { name: action.payload.name }) :
+          game
+      );
 
-  case FETCH_GAMES_FAILURE:
-    return { isLoading : false, error : action.payload.error };
+    case FETCH_GAMES:
+      return { ...state, isLoading : true };
 
-  default:
-    return state;
+    case FETCH_GAMES_SUCCESS:
+      return { games : action.payload.games, isLoading : false, error : null};
+
+    case FETCH_GAMES_FAILURE:
+      return { isLoading : false, error : action.payload.error };
+
+    default:
+      return state;
   }
 }

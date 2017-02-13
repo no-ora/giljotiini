@@ -2,7 +2,28 @@ import * as types from '../constants/ActionTypes';
 import axios from 'axios';
 
 export function addGame(name) {
-  return { type: types.ADD_GAME, payload: { name: name} };
+  return function (dispatch, getState) {
+    dispatch({ type: types.ADD_GAME });
+
+    return axios({
+      method: 'post',
+      url: `http://localhost:3000/api/v1/game`,
+      headers: [],
+      data: {
+        name: name
+      }
+    })
+    .then((response) => dispatch(addGameSuccess(response.data)))
+    .catch((error) => dispatch(addGameFailure(error)));
+  };
+}
+
+export function addGameSuccess(game){
+  return { type: types.ADD_GAME_SUCCESS, payload : { game: game } };
+}
+
+export function addGameFailure(error){
+  return { type: types.ADD_GAME_FAILURE, payload : { error: error } };
 }
 
 export function deleteGame(id) {

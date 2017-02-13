@@ -2,13 +2,14 @@ import React, { Component, PropTypes } from "react";
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as GameActions from '../actions/games';
+import { RaisedButton } from 'material-ui';
 
 class FetchGamesContainer extends Component {
   render() {
     const { gameActions } = this.props;
     return (
       <div>
-        <button onClick ={ gameActions.fetchGames }/>
+        <RaisedButton onClick ={ gameActions.fetchGames }>Hae pelit</RaisedButton>
       </div>
     );
   }
