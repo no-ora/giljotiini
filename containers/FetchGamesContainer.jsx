@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from "react";
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import * as GameActions from '../actions/games';
+import * as GameActions from '../actions/Games';
 import { RaisedButton } from 'material-ui';
 
 class FetchGamesContainer extends Component {
