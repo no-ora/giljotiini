@@ -1,3 +1,5 @@
+const webpack = require('webpack');
+
 module.exports = {
   context: __dirname,
   entry: {
@@ -26,5 +28,10 @@ module.exports = {
   },
   eslint: {
     configFile: './.eslintrc'
-  }
+  },
+  plugins: [
+    new webpack.DefinePlugin({
+      'process.env.API_URL': JSON.stringify(process.env.API_URL)
+    })
+  ]
 };
