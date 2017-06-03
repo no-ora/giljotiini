@@ -1,7 +1,6 @@
 import React, { Component, PropTypes } from "react";
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import Header from '../components/Header';
 import GameListContainer from '../containers/GameListContainer';
 import AddGameContainer from '../containers/AddGameContainer';
 import FetchGamesContainer from '../containers/FetchGamesContainer';
