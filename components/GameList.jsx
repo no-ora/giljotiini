@@ -13,12 +13,12 @@ class GameList extends Component {
   }
 
   render() {
-    const { games } = this.props;
+    const { games, navigateToGame } = this.props;
     return (
       <div className="game-list" style={defaultStyle}>
         <List className="game-list">
           {games.map(game =>
-            <GameItem key={game.id} game={game} />
+            <GameItem key={game.id} game={game} onClick={navigateToGame}/>
           )}
         </List>
       </div>
@@ -27,7 +27,8 @@ class GameList extends Component {
 }
 
 GameList.propTypes = {
-  games: PropTypes.array.isRequired
+  games: PropTypes.array.isRequired,
+  navigateToGame: PropTypes.func
 };
 
 export default GameList;

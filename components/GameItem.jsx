@@ -8,17 +8,18 @@ class GameItem extends Component {
   }
 
   render() {
-    const { game } = this.props;
+    const { game, onClick } = this.props;
     return (
       <div>
-        <ListItem primaryText={game.name}/>
+        <ListItem primaryText={game.name} onTouchTap={() => onClick(game.id)}/>
       </div>
     );
   }
 }
 
 GameItem.propTypes = {
-  game: PropTypes.object.isRequired
+  game: PropTypes.object.isRequired,
+  onClick: PropTypes.func
 };
 
 export default GameItem;
